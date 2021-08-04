@@ -33,6 +33,10 @@ extern int libconfig_yydebug;
 /* Token type. */
 #ifndef YYTOKENTYPE
 #define YYTOKENTYPE
+/*-----------------------------------------------------------------------------------------
+**									  Enum Definition
+**-----------------------------------------------------------------------------------------
+*/
 enum yytokentype
 {
 	TOK_BOOLEAN = 258,
@@ -66,12 +70,29 @@ enum yytokentype
 #define TOK_INTEGER 259
 #define TOK_HEX 260
 #define TOK_INTEGER64 261
-
-
+#define TOK_HEX264 262
+#define TOK_FLOAT 263
+#define TOK_STRING 264
+#define TOK_NAME 265
+#define TOK_EQUALS 266
+#define TOK_NEWLINE 267
+#define TOK_ARRAY_START 268
+#define TOK_ARRAY_END 269
+#define TOK_LIST_START 270
+#define TOK_LIST_END 271
+#define TOK_COMMA 272
+#define TOK_GROUP_START 273
+#define TOK_GROUP_END 274
+#define TOK_SEMICOLON 275
+#define TOK_GARBAGE 276
+#define TOK_ERROR 277
 
 /* Value type. */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
+/*-----------------------------------------------------------------------------------------
+**									  Union Definition
+**-----------------------------------------------------------------------------------------
+*/
 union YYSTYPE
 {
 	int ival;
@@ -89,6 +110,6 @@ typedef union YYSTYPE YYSTYPE;
 **									 Function Declaration
 **-----------------------------------------------------------------------------------------
 */
-int libconfig_yyparse(void *scanner, struct parse_context *ctx, struct scan_context *scan_ctx);
+int libconfig_yyparse(void* scanner, struct parse_context* ctx, struct scan_context* scan_ctx);
 
 #endif /* YY_LIBCONFIG_YY_GRAMMAR_H_INCLUDED */

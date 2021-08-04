@@ -2,9 +2,9 @@
 **
 ** 版权(Copyright): Inory, 2021~ 
 **
-** 文件名(File Name): parsectx.h
+** 文件名(File Name): strbuf.h
 **
-** 描述(Description): 本文件定义结构化配置文件解析的内容
+** 描述(Description): 本文件定义字符串缓存相关的操作
 **
 ** 设计注记(Design Annotation):
 **
@@ -20,39 +20,36 @@
 **
 **-----------------------------------------------------------------------------------------
 */
-#ifndef __libconfig_parsectx_h
-#define __libconfig_parsectx_h
+#ifndef __libconfig_strbuf_h
+#define __libconfig_strbuf_h
 
 /*-----------------------------------------------------------------------------------------
 **										   Include
 **-----------------------------------------------------------------------------------------
 */
-#include "libconfig.h"
-#include "strbuf.h"
-#include "util.h"
+#include <string.h>
+#include <sys/types.h>
 
 /*-----------------------------------------------------------------------------------------
 **									  Struct Definition
 **-----------------------------------------------------------------------------------------
 */
-struct parse_context
+typedef struct
 {
-	config_t* config;
-	config_setting_t* parent;
-	config_setting_t* setting;
-	char* name;
-	strbuf_t string;
-};
+	char* string;
+	size_t length;
+	size_t capacity;
+} strbuf_t;
 
 /*-----------------------------------------------------------------------------------------
-**									  Macro Definition
+**									 Function Declaration
 **-----------------------------------------------------------------------------------------
 */
-#define libconfig_parsectx_init(C) __zero(C)
-#define libconfig_parsectx_cleanup(C) __delete(libconfig_strbuf_release(&((C)->string)))
+void libconfig_strbuf_append_string(strbuf_t* buf, const char* s);
 
-#define libconfig_parsectx_append_string(C, S) libconfig_strbuf_append_string(&((C)->string), (S))
-#define libconfig_parsectx_take_string(C) libconfig_strbuf_release(&((C)->string))
+void libconfig_strbuf_append_char(strbuf_t* buf, char c);
 
-#endif /* __libconfig_parsectx_h */
+char *libconfig_strbuf_release(strbuf_t* buf);
+
+#endif /* __libconfig_strbuf_h */
 

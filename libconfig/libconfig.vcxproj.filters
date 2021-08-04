@@ -18,12 +18,21 @@
     <ClCompile Include="APP\libconfig.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="APP\strbuf.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APP\libconfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="APP\grammar.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="APP\parsectx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="APP\strbuf.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
