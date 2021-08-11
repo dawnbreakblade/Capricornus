@@ -203,7 +203,92 @@ extern LIBCONFIG_API int config_setting_lookup_float(const config_setting_t* set
 extern LIBCONFIG_API int config_setting_lookup_bool(const config_setting_t* setting, const char* name, int* value);
 extern LIBCONFIG_API int config_setting_lookup_string(const config_setting_t* setting, const char* name, const char** value);
 
+extern LIBCONFIG_API int config_setting_set_int(config_setting_t* setting, int value);
+extern LIBCONFIG_API int config_setting_set_int64(config_setting_t* setting, long long value);
+extern LIBCONFIG_API int config_setting_set_float(config_setting_t* setting, double value);
+extern LIBCONFIG_API int config_setting_set_bool(config_setting_t* setting, int value);
+extern LIBCONFIG_API int config_setting_set_string(config_setting_t* setting, const char* value);
 
+extern LIBCONFIG_API int config_setting_set_format(config_setting_t* setting, short format);
+extern LIBCONFIG_API short config_setting_get_format(const config_setting_t* setting);
+
+extern LIBCONFIG_API int config_setting_get_int_elem(config_setting_t* setting, int idx);
+extern LIBCONFIG_API long long config_setting_get_int64_elem(config_setting_t* setting, int idx);
+extern LIBCONFIG_API double config_setting_get_float_elem(config_setting_t* setting, int idx);
+extern LIBCONFIG_API int config_setting_get_bool_elem(config_setting_t* setting, int idx);
+extern LIBCONFIG_API const char* config_setting_get_string_elem(const config_setting_t* setting, int idx);
+
+extern LIBCONFIG_API config_setting_t* config_setting_set_int_elem(config_setting_t* setting, int idx, int value);
+extern LIBCONFIG_API config_setting_t* config_setting_set_int64_elem(config_setting_t* setting, int idx, long long value);
+extern LIBCONFIG_API config_setting_t* config_setting_set_float_elem(config_setting_t* setting, int idx, double value);
+extern LIBCONFIG_API config_setting_t* config_setting_set_bool_elem(config_setting_t* setting, int idx, int value);
+extern LIBCONFIG_API config_setting_t* config_setting_set_string_elem(config_setting_t* setting, int idx, const char* value);
+
+extern LIBCONFIG_API const char** config_default_include_func(config_t* config, const char* include_dir, const char* path, const char** error);
+
+extern LIBCONFIG_API int config_setting_is_scalar(const config_setting_t* setting);
+
+extern LIBCONFIG_API int config_setting_is_aggregate(const config_setting_t* setting);
+
+#define config_get_include_dir(C) ((C)->include_dir)
+
+#define config_set_auto_convert(C, F) config_set_option((C), CONFIG_OPTION_AUTOCONVERT, (F))
+#define config_get_auto_convert(C) config_get_option((C), CONFIG_OPTION_AUTOCONVERT)
+
+#define config_setting_type(S) ((S)->type)
+
+#define config_setting_is_group(S) ((S)->type == CONFIG_TYPE_GROUP)
+#define config_setting_is_array(S) ((S)->type == CONFIG_TYPE_ARRAY)
+#define config_setting_is_list(S) ((S)->type == CONFIG_TYPE_LIST)
+
+#define config_setting_is_number(S) (((S)->type == CONFIG_TYPE_INT) || ((S)->type == CONFIG_TYPE_INT64) || ((S)->type == CONFIG_TYPE_FLOAT))
+
+#define config_setting_name(S) ((S)->name)
+
+#define config_setting_parent(S) ((S)->parent)
+
+#define config_setting_is_root(S) ((S)->parent ? CONFIG_FALSE : CONFIG_TRUE)
+
+extern LIBCONFIG_API int config_setting_index(const config_setting_t* setting);
+
+extern LIBCONFIG_API int config_setting_length(const config_setting_t* setting);
+extern LIBCONFIG_API config_setting_t* config_setting_get_elem(const config_setting_t* setting, unsigned int idx);
+
+extern LIBCONFIG_API config_setting_t* config_setting_get_member(const config_setting_t* parent, const char* name, int type);
+
+extern LIBCONFIG_API config_setting_t* config_setting_add(config_setting_t* parent, const char* name, int type);
+extern LIBCONFIG_API config_setting_t* config_setting_remove(config_setting_t* parent, const char* name);
+extern LIBCONFIG_API config_setting_t* config_setting_remove_elem(config_setting_t* parent, unsigned int idx);
+extern LIBCONFIG_API config_setting_t* config_setting_set_hook(config_setting_t* setting, void* hook);
+
+#define config_setting_get_hook(S) ((S)->hook)
+
+extern LIBCONFIG_API config_setting_t* config_lookup(const config_t* config, const char* path);
+extern LIBCONFIG_API config_setting_t* config_setting_lookup(config_setting_t* setting, const char* path);
+
+extern LIBCONFIG_API int config_lookup_init(const config_t* config, const char* path, int* value);
+extern LIBCONFIG_API int config_lookup_int64(const config_t* config, const char* path, long long* value);
+extern LIBCONFIG_API int config_lookup_float(const config_t* config, const char* path, double* value);
+extern LIBCONFIG_API int config_lookup_bool(const config_t* config, const char* path, int* value);
+extern LIBCONFIG_API int config_lookup_string(const config_t* config, const char* path, const char** value);
+
+#define config_root_setting(C) ((C)->root)
+
+#define config_set_default_format(C, F) (C)->default_format = (F)
+
+#define config_get_default_format(C) ((C)->default_format)
+
+#define config_setting_source_line(S) ((S)->line)
+
+#define config_setting_source_file(S) ((S)->file)
+
+#define config_error_text(C) ((C)->error_text)
+
+#define config_error_file(C) ((C)->error_file)
+
+#define config_error_line(C) ((C)->error_line)
+
+#define config_error_type(C) ((C)->error_type)
 
 #ifdef __cplusplus
 }
